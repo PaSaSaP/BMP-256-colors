@@ -34,7 +34,8 @@ class Bmp:
         image_header = b''
         image_header += (40).to_bytes(4, 'little')  # Header Size - Must be at least 40
         image_header += width.to_bytes(4, 'little')  # Image width in pixels
-        image_header += height.to_bytes(4, 'little')  # Image height in pixels
+        # Use negative value so y==0 is on the top of the image
+        image_header += (0xFFFFFFFF - height + 1).to_bytes(4, 'little')  # Image height in pixels
         image_header += (1).to_bytes(2, 'little')  # Must be 1
         image_header += (8).to_bytes(2, 'little')  # Bits per pixel - 1, 4, 8, 16, 24, or 32
         image_header += (0).to_bytes(4, 'little')  # Compression type (0 = uncompressed)

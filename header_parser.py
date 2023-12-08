@@ -44,6 +44,25 @@ class BmpHeader:
             self.color_map = int.from_bytes(f.read(4), 'little')
             self.num_of_significant_colors = int.from_bytes(f.read(4), 'little')
 
+    def get_bytes(self):
+        b = b'BM'
+        b += self.file_size.to_bytes(4, 'little')
+        b += self.reserved1.to_bytes(2, 'little')
+        b += self.reserved2.to_bytes(2, 'little')
+        b += self.offset.to_bytes(4, 'little')
+        b += self.img_header_size.to_bytes(4, 'little')
+        b += self.width.to_bytes(4, 'little')
+        b += self.height.to_bytes(4, 'little')
+        b += self.planes.to_bytes(2, 'little')
+        b += self.bit_count.to_bytes(2, 'little')
+        b += self.compression.to_bytes(4, 'little')
+        b += self.image_size.to_bytes(4, 'little')
+        b += self.xpix_per_meter.to_bytes(4, 'little')
+        b += self.ypix_per_meter.to_bytes(4, 'little')
+        b += self.color_map.to_bytes(4, 'little')
+        b += self.num_of_significant_colors.to_bytes(4, 'little')
+        return b
+
     def __repr__(self):
         return str(self.__dict__)
 
